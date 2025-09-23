@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed;
     public Rigidbody rb;
     float horizontalInput;
+    
+    [SerializeField] private float JumpForce = 350;
+    [SerializeField] private LayerMask GroundMask;
+        
 
     private void Awake()
     {
@@ -34,5 +38,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+        float playerHeight = GetComponent<Collider>().bounds.size.y;
+        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, GroundMask);
+    
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
+        {
+            Jump();
+        }
+    }
+
+    public void Jump()
+    {
+        rb.AddForce(Vector3.up * JumpForce);
     }
 }
