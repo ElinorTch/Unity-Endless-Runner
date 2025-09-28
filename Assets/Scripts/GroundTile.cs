@@ -7,6 +7,11 @@ public class GroundTile : MonoBehaviour
     public GameObject[] obstaclePrefabs;
     public Transform[] spawnPoints;
 
+    private void Awake()
+    {
+        groundSpawner = GameObject.FindAnyObjectByType<GroundSpawner>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,8 +20,6 @@ public class GroundTile : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
-        Debug.Log("Tile Destroyed");
         groundSpawner.SpawnTile();
         Destroy(gameObject, 5f);
     }
