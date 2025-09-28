@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
         {
+            Debug.Log("Jump");
             Jump();
         }
     }
