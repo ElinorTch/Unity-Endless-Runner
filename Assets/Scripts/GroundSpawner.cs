@@ -8,9 +8,9 @@ public class GroundSpawner : MonoBehaviour
 
     public void SpawnTile()
     {
-        Debug.Log("Tile Spawned");
         GameObject temp = Instantiate(groundTilePrefab, nextSpawnPoint, Quaternion.identity);
         nextSpawnPoint = temp.transform.GetChild(1).transform.position;
+        Debug.Log("Spawned Tile");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

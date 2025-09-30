@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed;
     public Rigidbody rb;
     float horizontalInput;
-    
+
     [SerializeField] private float JumpForce = 350;
     [SerializeField] private LayerMask GroundMask;
         
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
         {
-            Debug.Log("Jump");
             Jump();
         }
     }
