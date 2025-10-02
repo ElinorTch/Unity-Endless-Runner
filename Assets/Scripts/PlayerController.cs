@@ -51,4 +51,18 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(Vector3.up * JumpForce);
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Graphic")
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isAlive = false;
+        Debug.Log("Player Died");
+    }
 }

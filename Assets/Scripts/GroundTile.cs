@@ -15,6 +15,7 @@ public class GroundTile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SpawnObstacle();
     }
 
     private void OnTriggerExit(Collider other)
@@ -27,5 +28,12 @@ public class GroundTile : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SpawnObstacle()
+    {
+        int randomIndex = Random.Range(0, obstaclePrefabs.Length);
+        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+        Instantiate(obstaclePrefabs[randomIndex], spawnPoints[spawnPointIndex].transform.position, Quaternion.identity, transform);
     }
 }
