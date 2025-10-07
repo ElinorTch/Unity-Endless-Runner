@@ -63,6 +63,6 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         isAlive = false;
-        Debug.Log("Player Died");
+        GameManager.MyInstance.GameOverPanel.SetActive(true);
     }
 }
