@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+
+        if (collision.gameObject.name == "Coin(Clone)")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     public void Die()
