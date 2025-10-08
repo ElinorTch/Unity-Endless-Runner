@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isAlive = true;
     public float RunSpeed;
+    public int speedIncrease;
     public float HorizontalSpeed;
     public Rigidbody rb;
     float horizontalInput;
@@ -62,6 +63,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "Coin(Clone)")
         {
             Destroy(collision.gameObject);
+            GameManager.MyInstance.score++;
+            RunSpeed += speedIncrease;
         }
     }
 

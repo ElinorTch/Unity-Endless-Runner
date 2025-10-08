@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager MyInstance;
     public GameObject GameOverPanel;
+
+    public int score = 0;
+    public TextMeshProUGUI scoreText;
 
     private void Awake()
     {
@@ -21,7 +25,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        scoreText.text = "Score: " + score;
     }
 
     public void ResetLevel()
