@@ -18,6 +18,7 @@ public class GroundTile : MonoBehaviour
     {
         SpawnObstacle();
         SpawnCoins();
+        Debug.Log("Test"); 
     }
 
     private void OnTriggerExit(Collider other)
@@ -53,7 +54,7 @@ public class GroundTile : MonoBehaviour
     {
         Vector3 point = new Vector3(
             Random.Range(col.bounds.min.x, col.bounds.max.x),
-            0.5f,
+            1f,
             Random.Range(col.bounds.min.z, col.bounds.max.z)
         );
         return point;
