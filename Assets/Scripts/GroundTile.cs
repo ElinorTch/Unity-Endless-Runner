@@ -6,7 +6,8 @@ public class GroundTile : MonoBehaviour
 
     public GameObject coinPrefab;
     public GameObject[] obstaclePrefabs;
-    public Transform[] spawnPoints;
+    public Transform UpDownSpawnPoint;
+    public Transform[] coneSpawnPoints;
 
     private void Awake()
     {
@@ -18,7 +19,6 @@ public class GroundTile : MonoBehaviour
     {
         SpawnObstacle();
         SpawnCoins();
-        Debug.Log("Test"); 
     }
 
     private void OnTriggerExit(Collider other)
@@ -36,8 +36,18 @@ public class GroundTile : MonoBehaviour
     public void SpawnObstacle()
     {
         int randomIndex = Random.Range(0, obstaclePrefabs.Length);
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-        Instantiate(obstaclePrefabs[randomIndex], spawnPoints[spawnPointIndex].transform.position, Quaternion.identity, transform);
+        int spawnPointIndex = Random.Range(0, coneSpawnPoints.Length);
+
+        if (randomIndex == 0)
+        {
+            Instantiate(obstaclePrefabs[randomIndex], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
+            return;
+        }
+        else
+        {
+            Instantiate(obstaclePrefabs[randomIndex], UpDownSpawnPoint.position, Quaternion.identity);
+            return;
+        }
     }
 
     public void SpawnCoins()

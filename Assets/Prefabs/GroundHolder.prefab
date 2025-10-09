@@ -124,6 +124,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2456930603892043801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5971703155592438308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4365493494279590562}
+  m_Layer: 0
+  m_Name: SpawnPoint4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4365493494279590562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971703155592438308}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.23, y: 0.5, z: -9.75}
+  m_LocalScale: {x: 400, y: 17.054699, z: 1500.0001}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2456930603892043801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7996429447151255875
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +191,7 @@ Transform:
   - {fileID: 2293848748501425008}
   - {fileID: 1506167771770015870}
   - {fileID: 1580712886324937884}
+  - {fileID: 4365493494279590562}
   - {fileID: 1290691210010397787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -198,9 +230,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 8354932550540878992, guid: 5cf662d4095f3984987f1cddfc1810d4, type: 3}
   obstaclePrefabs:
-  - {fileID: 6445058167991157644, guid: ecdc85c46bddb4348a2ae6497767f637, type: 3}
-  - {fileID: 4314835103059189054, guid: d7311bb67dbf5a446a3f9b28c0f4dc41, type: 3}
-  spawnPoints:
+  - {fileID: 7111441804316414976, guid: 001ef5ccee38f2041afdb0330a6c9f1c, type: 3}
+  - {fileID: 9119037392277772973, guid: b3abb07367183b84eb5e2a1398d7cef1, type: 3}
+  - {fileID: 8824526925783509097, guid: 13c0cdbac94dc1046aa4eb8ad84c6120, type: 3}
+  UpDownSpawnPoint: {fileID: 4365493494279590562}
+  coneSpawnPoints:
   - {fileID: 2293848748501425008}
   - {fileID: 1506167771770015870}
   - {fileID: 1580712886324937884}
@@ -376,7 +410,5 @@ MonoBehaviour:
   obstaclePrefabs:
   - {fileID: 6445058167991157644, guid: ecdc85c46bddb4348a2ae6497767f637, type: 3}
   - {fileID: 4314835103059189054, guid: d7311bb67dbf5a446a3f9b28c0f4dc41, type: 3}
-  spawnPoints:
-  - {fileID: 2293848748501425008}
-  - {fileID: 1506167771770015870}
-  - {fileID: 1580712886324937884}
+  UpDownSpawnPoint: {fileID: 0}
+  coneSpawnPoints: []

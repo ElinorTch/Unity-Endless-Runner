@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "Graphic")
         {
+            Debug.Log("Collision: " + collision.gameObject.name);
             Die();
         }
 
