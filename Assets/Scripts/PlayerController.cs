@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,9 +10,12 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed;
     public Rigidbody rb;
     float horizontalInput;
+    public bool isGameStarted = false;
+    public TextMeshProUGUI startingText;
 
     [SerializeField] private float JumpForce = 350;
     [SerializeField] private LayerMask GroundMask;
+
         
 
     private void Awake()
@@ -21,6 +25,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isGameStarted = true;
+            Destroy(startingText);
+        }
+
+        if (!isGameStarted)
+        {
+            return;
+        }
+
         if (isAlive)
         {
             Vector3 forwardMove = transform.forward * RunSpeed * Time.fixedDeltaTime;
@@ -41,7 +56,8 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         float playerHeight = GetComponent<Collider>().bounds.size.y;
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, GroundMask);
-    
+
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
         {
             Jump();
