@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public bool isGameStarted = false;
     public TextMeshProUGUI startingText;
 
+    private Animator animator;
+
     [SerializeField] private float JumpForce = 350;
     [SerializeField] private LayerMask GroundMask;
 
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -61,6 +63,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
         {
             Jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            animator.SetBool("isSliding", true);
         }
     }
 
