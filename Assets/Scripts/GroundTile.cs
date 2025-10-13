@@ -30,31 +30,41 @@ public class GroundTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnObstacle()
     {
-        int randomIndex = Random.Range(0, obstaclePrefabs.Length);
+        int randomIndex = Random.Range(1, obstaclePrefabs.Length);
         int spawnPointIndex = Random.Range(0, coneSpawnPoints.Length);
 
-        if (randomIndex == 0)
-        {
-            Instantiate(obstaclePrefabs[randomIndex], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
-            return;
-        }
-        else
-        {
+        //if (randomIndex == 0)
+        //{
+            Instantiate(obstaclePrefabs[0], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
+            
+        //}
+        //else
+        //{
             Instantiate(obstaclePrefabs[randomIndex], UpDownSpawnPoint.position, Quaternion.identity);
+
+            //if (randomIndex == 1)
+            //{
+            //    Instantiate(obstaclePrefabs[2], UpDownSpawnPoint.position, Quaternion.identity);
+            //}
+            //else
+            //{
+            //    Instantiate(obstaclePrefabs[1], UpDownSpawnPoint.position, Quaternion.identity);
+            //}
             return;
-        }
+        //}
     }
 
     public void SpawnCoins()
     {
-        int spawnAmount = 1;
+        int spawnAmount = 5;
         for (int i = 0; i < spawnAmount; i++)
         {
+            Debug.Log("Coin");
             GameObject tempCoin = Instantiate(coinPrefab);
             tempCoin.transform.position = spawnRandomPoint(GetComponent<Collider>());
         }

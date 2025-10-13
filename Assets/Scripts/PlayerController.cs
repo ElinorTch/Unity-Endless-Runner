@@ -68,7 +68,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             animator.SetBool("isSliding", true);
+            animator.SetBool("isSliding", false);
         }
+
     }
 
     public void Jump()
