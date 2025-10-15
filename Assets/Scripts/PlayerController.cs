@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,11 @@ public class PlayerController : MonoBehaviour
     public bool isGameStarted = false;
     public TextMeshProUGUI startingText;
 
+    private CapsuleCollider capsuleCollider;
+    private float originalHeight;
+    private Vector3 originalCenter;
+
+
     private Animator animator;
 
     [SerializeField] private float JumpForce = 350;
@@ -27,12 +33,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isGameStarted = true;
-            Destroy(startingText);
-        }
-
         if (!isGameStarted)
         {
             return;
@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        originalHeight = capsuleCollider.height;
+        originalCenter = capsuleCollider.center;
     }
 
     // Update is called once per frame
@@ -59,6 +62,12 @@ public class PlayerController : MonoBehaviour
         float playerHeight = GetComponent<Collider>().bounds.size.y;
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f, GroundMask);
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isGameStarted = true;
+            animator.SetBool("isRunning", true);
+            Destroy(startingText);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && isAlive )
         {
@@ -68,8 +77,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             animator.SetBool("isSliding", true);
+
+            // Réduction du collider
+            capsuleCollider.height = originalHeight / 2f;
+            capsuleCollider.center = new Vector3(originalCenter.x, originalCenter.y / 2f, originalCenter.z);
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            capsuleCollider.height = originalHeight;
+            capsuleCollider.center = originalCenter;
             animator.SetBool("isSliding", false);
         }
+
 
     }
 
