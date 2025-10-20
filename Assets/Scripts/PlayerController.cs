@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
-    [SerializeField] private float JumpForce = 350;
+    [SerializeField] private float JumpForce = 100;
     [SerializeField] private LayerMask GroundMask;
 
         

@@ -827,7 +827,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   isGameStarted: 0
   startingText: {fileID: 2096905508}
-  JumpForce: 350
+  JumpForce: 280
   GroundMask:
     serializedVersion: 2
     m_Bits: 128
@@ -1893,7 +1893,7 @@ Transform:
   m_GameObject: {fileID: 919132148130489213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.85, z: -33.84}
+  m_LocalPosition: {x: 0, y: 0.85, z: -33.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3511,7 +3511,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 4f8740179a73bb14eace10fc64d515c9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
