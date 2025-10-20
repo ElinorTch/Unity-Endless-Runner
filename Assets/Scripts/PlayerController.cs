@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     private float originalHeight;
     private Vector3 originalCenter;
 
+    public bool coinMagnetActive = false;
+    public float magnetRadius = 5f;
+    public float magnetForce = 2000f;
+
+    public bool hasShield = false;
 
     private Animator animator;
 
@@ -30,6 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+
+
 
     private void FixedUpdate()
     {
@@ -44,6 +51,20 @@ public class PlayerController : MonoBehaviour
             Vector3 horizontalMove = transform.right * horizontalInput * HorizontalSpeed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + forwardMove + horizontalMove);
         }
+
+        if (coinMagnetActive)
+        {
+            Collider[] coins = Physics.OverlapSphere(transform.position, magnetRadius);
+            foreach (Collider coin in coins)
+            {
+                if (coin.CompareTag("Coin"))
+                {
+                    Vector3 direction = (transform.position - coin.transform.position).normalized;
+                    coin.GetComponent<Rigidbody>().AddForce(direction * magnetForce);
+                }
+            }
+        }
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -90,9 +111,46 @@ public class PlayerController : MonoBehaviour
             capsuleCollider.center = originalCenter;
             animator.SetBool("isSliding", false);
         }
-
-
     }
+
+    public void ActivateShield()
+    {
+        StartCoroutine(Shield());
+    }
+
+    private IEnumerator Shield()
+    {
+        hasShield = true;
+        yield return new WaitForSeconds(15);
+        hasShield = false;
+    }
+
+
+    public void ActivateMagnet()
+    {
+        StartCoroutine(Magnet());
+    }
+
+    private IEnumerator Magnet()
+    {
+        coinMagnetActive = true;
+        yield return new WaitForSeconds(15);
+        coinMagnetActive = false;
+    }
+
+    public void ReduceHorizontalSpeed()
+    {
+        StartCoroutine(ReduceSpeedTemporarily());
+    }
+
+    private IEnumerator ReduceSpeedTemporarily()
+    {
+        float originalSpeed = HorizontalSpeed;
+        HorizontalSpeed = 2.5f;
+        yield return new WaitForSeconds(10);
+        HorizontalSpeed = originalSpeed;
+    }
+
 
     public void Jump()
     {
@@ -101,10 +159,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.name == "Graphic")
         {
-            Debug.Log("Collision: " + collision.gameObject.name);
-            Die();
+            if (hasShield)
+            {
+                hasShield = false;
+                Destroy(collision.gameObject); // Ignore la mort
+            }
+            else
+            {
+                Die();
+            }
         }
 
         if (collision.gameObject.name == "Coin(Clone)")
@@ -112,6 +178,24 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             GameManager.MyInstance.score++;
             RunSpeed += speedIncrease;
+        }
+
+        if (collision.gameObject.name == "SpeedReduce(Clone)")
+        {
+            Destroy(collision.gameObject);
+            ReduceHorizontalSpeed();
+        }
+
+        if (collision.gameObject.name == "Magnet(Clone)")
+        {
+            Destroy(collision.gameObject);
+            ActivateMagnet();
+        }
+
+        if (collision.gameObject.name == "Shield(Clone)")
+        {
+            Destroy(collision.gameObject);
+            ActivateShield();
         }
     }
 

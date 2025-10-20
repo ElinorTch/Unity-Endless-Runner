@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GroundTile : MonoBehaviour
@@ -6,8 +7,14 @@ public class GroundTile : MonoBehaviour
 
     public GameObject coinPrefab;
     public GameObject[] obstaclePrefabs;
+
     public Transform UpDownSpawnPoint;
     public Transform[] coneSpawnPoints;
+
+    public GameObject[] powerPrefabs; 
+    public Transform[] powerSpawnPoints;
+
+    public bool powerSpawned = false;
 
     private void Awake()
     {
@@ -19,6 +26,7 @@ public class GroundTile : MonoBehaviour
     {
         SpawnObstacle();
         SpawnCoins();
+        SpawnPower();   
     }
 
     private void OnTriggerExit(Collider other)
@@ -37,26 +45,9 @@ public class GroundTile : MonoBehaviour
     {
         int randomIndex = Random.Range(1, obstaclePrefabs.Length);
         int spawnPointIndex = Random.Range(0, coneSpawnPoints.Length);
-
-        //if (randomIndex == 0)
-        //{
-            Instantiate(obstaclePrefabs[0], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
-            
-        //}
-        //else
-        //{
-            Instantiate(obstaclePrefabs[randomIndex], UpDownSpawnPoint.position, Quaternion.identity);
-
-            //if (randomIndex == 1)
-            //{
-            //    Instantiate(obstaclePrefabs[2], UpDownSpawnPoint.position, Quaternion.identity);
-            //}
-            //else
-            //{
-            //    Instantiate(obstaclePrefabs[1], UpDownSpawnPoint.position, Quaternion.identity);
-            //}
-            return;
-        //}
+        Instantiate(obstaclePrefabs[0], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
+        Instantiate(obstaclePrefabs[randomIndex], UpDownSpawnPoint.position, Quaternion.identity);
+        return;
     }
 
     public void SpawnCoins()
@@ -64,11 +55,21 @@ public class GroundTile : MonoBehaviour
         int spawnAmount = 5;
         for (int i = 0; i < spawnAmount; i++)
         {
-            Debug.Log("Coin");
             GameObject tempCoin = Instantiate(coinPrefab);
             tempCoin.transform.position = spawnRandomPoint(GetComponent<Collider>());
         }
     }
+
+    void SpawnPower()
+    {
+        if (powerSpawned) return;
+        int powerIndex = Random.Range(0, powerPrefabs.Length);
+        int pointIndex = Random.Range(0, powerSpawnPoints.Length);
+        Instantiate(powerPrefabs[powerIndex], powerSpawnPoints[pointIndex].position, Quaternion.identity);
+        powerSpawned = true;
+        return;
+    }
+
 
     Vector3 spawnRandomPoint(Collider col)
     {
