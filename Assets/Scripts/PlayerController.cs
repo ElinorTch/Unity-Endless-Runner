@@ -29,13 +29,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float JumpForce = 100;
     [SerializeField] private LayerMask GroundMask;
 
-        
+
+    public float laneDistance = 3f; // Distance entre les lanes
+    private int currentLane = 1;    // 0 = gauche, 1 = centre, 2 = droite
+
+    public float laneSwitchSpeed = 10f;
+    public float forwardSpeed = 10f;
+
+    private Vector3 targetPosition;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        targetPosition = transform.position;
     }
-
 
 
     private void FixedUpdate()
@@ -47,9 +54,11 @@ public class PlayerController : MonoBehaviour
 
         if (isAlive)
         {
-            Vector3 forwardMove = transform.forward * RunSpeed * Time.fixedDeltaTime;
-            Vector3 horizontalMove = transform.right * horizontalInput * HorizontalSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + forwardMove + horizontalMove);
+            Vector3 forwardMove = Vector3.forward * forwardSpeed * Time.fixedDeltaTime;
+            Vector3 lateralMove = Vector3.right * (targetPosition.x - transform.position.x);
+            lateralMove = Vector3.ClampMagnitude(lateralMove, laneSwitchSpeed * Time.fixedDeltaTime);
+
+            rb.MovePosition(rb.position + forwardMove + lateralMove);
         }
 
         if (coinMagnetActive)
@@ -111,7 +120,28 @@ public class PlayerController : MonoBehaviour
             capsuleCollider.center = originalCenter;
             animator.SetBool("isSliding", false);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0)
+        {
+            currentLane--;
+            UpdateTargetPosition();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 2)
+        {
+            currentLane++;
+            UpdateTargetPosition();
+        }
+
     }
+
+    void UpdateTargetPosition()
+    {
+        float xPos = (currentLane - 1) * laneDistance;
+        targetPosition = new Vector3(xPos, transform.position.y, transform.position.z);
+    }
+
 
     public void ActivateShield()
     {
