@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GroundTile : MonoBehaviour
@@ -12,7 +13,7 @@ public class GroundTile : MonoBehaviour
     public Transform UpDownSpawnPoint;
     public Transform[] coneSpawnPoints;
 
-    public GameObject[] powerPrefabs; 
+    public GameObject[] powerPrefabs;
     public Transform[] powerSpawnPoints;
 
     public LayerMask obstacleMask;
@@ -27,13 +28,13 @@ public class GroundTile : MonoBehaviour
     {
         SpawnObstacle();
         SpawnCoins1();
-        SpawnPower();   
+        SpawnPower();
     }
 
     private void OnTriggerExit(Collider other)
     {
         groundSpawner.SpawnTile();
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 10f);
     }
 
     // Update is called once per frame
@@ -49,16 +50,6 @@ public class GroundTile : MonoBehaviour
         Instantiate(obstaclePrefabs[0], coneSpawnPoints[spawnPointIndex].transform.position, Quaternion.identity);
         Instantiate(obstaclePrefabs[randomIndex], UpDownSpawnPoint.position, Quaternion.identity);
         return;
-    }
-
-    public void SpawnCoins()
-    {
-        int spawnAmount = 5;
-        for (int i = 0; i < spawnAmount; i++)
-        {
-            GameObject tempCoin = Instantiate(coinPrefab);
-            tempCoin.transform.position = spawnRandomPoint(GetComponent<Collider>());
-        }
     }
 
     List<Vector3> GenerateCoinArc(Vector3 startPos, int coinCount, float arcWidth, float arcHeight)
@@ -78,20 +69,6 @@ public class GroundTile : MonoBehaviour
         return positions;
     }
 
-    void SpawnCoinsOverObstacle(float laneX, float zStart)
-    {
-        float zEnd = zStart + 6f;
-        if (IsObstacleOnLane(laneX, zStart, zEnd))
-        {
-            Vector3 arcStart = new Vector3(laneX, 1f, zStart);
-            List<Vector3> arcPositions = GenerateCoinArc(arcStart, 5, 6f, 2f);
-
-            foreach (Vector3 pos in arcPositions)
-            {
-                Instantiate(coinPrefab, pos, Quaternion.identity);
-            }
-        }
-    }
 
     bool IsObstacleOnLane(float x, float zStart, float zEnd)
     {
@@ -106,48 +83,34 @@ public class GroundTile : MonoBehaviour
     public void SpawnCoins1()
     {
         int spawnAmount = 5;
-        float laneDistance = 3f; // Distance entre les lanes
-        int laneIndex = Random.Range(0, 3); // 0 = gauche, 1 = centre, 2 = droite
+        float laneDistance = 3f;         // Distance entre les lanes
+        float spacingZ = 2f;             // Espace entre les pièces
+        float arcWidth = spawnAmount * spacingZ;
+
+        // Choix aléatoire de la lane : 0 = gauche, 1 = centre, 2 = droite
+        int laneIndex = Random.Range(0, 3);
         float xPos = (laneIndex - 1) * laneDistance;
 
-        float startZ = transform.position.z + 10f; // Distance devant le joueur
-        float spacingZ = 2f; // Espace entre les pièces
+        // Position de départ en Z (devant le joueur)
+        float startZ = transform.position.z + 10f;
 
         for (int i = 0; i < spawnAmount; i++)
         {
             Vector3 spawnPos = new Vector3(xPos, 1f, startZ + i * spacingZ);
-            GameObject tempCoin = Instantiate(coinPrefab, spawnPos, Quaternion.identity);
+            Instantiate(coinPrefab, spawnPos, Quaternion.identity);
         }
+
     }
 
     void SpawnPower()
     {
         int canSpawn = Random.Range(0, 2);
         if (canSpawn == 0) return;
-        
+
         int powerIndex = Random.Range(0, powerPrefabs.Length);
         int pointIndex = Random.Range(0, powerSpawnPoints.Length);
         Instantiate(powerPrefabs[powerIndex], powerSpawnPoints[pointIndex].position, Quaternion.identity);
         return;
-    }
-
-
-    Vector3 spawnRandomPoint(Collider col)
-    {
-        Vector3 point = new Vector3(
-            Random.Range(col.bounds.min.x, col.bounds.max.x),
-            1f,
-            Random.Range(col.bounds.min.z, col.bounds.max.z)
-        );
-        return point;
-    }
-
-
-    Vector3 SpawnCoinInLane(float laneOffset, float z)
-    {
-        int laneIndex = Random.Range(0, 3); // 0 = gauche, 1 = centre, 2 = droite
-        float x = (laneIndex - 1) * laneOffset;
-        return new Vector3(x, 1f, z);
     }
 
 }

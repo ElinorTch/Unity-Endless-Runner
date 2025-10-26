@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             GameManager.MyInstance.score++;
-            if (GameManager.MyInstance.score % 10 == 0)
+            if (GameManager.MyInstance.score % 30 == 0)
                 RunSpeed += speedIncrease;
         }
 
