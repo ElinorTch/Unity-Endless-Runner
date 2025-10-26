@@ -54,9 +54,9 @@ public class PlayerController : MonoBehaviour
 
         if (isAlive)
         {
-            Vector3 forwardMove = Vector3.forward * forwardSpeed * Time.fixedDeltaTime;
+            Vector3 forwardMove = Vector3.forward * RunSpeed * Time.fixedDeltaTime;
             Vector3 lateralMove = Vector3.right * (targetPosition.x - transform.position.x);
-            lateralMove = Vector3.ClampMagnitude(lateralMove, laneSwitchSpeed * Time.fixedDeltaTime);
+            lateralMove = Vector3.ClampMagnitude(lateralMove, HorizontalSpeed * Time.fixedDeltaTime);
 
             rb.MovePosition(rb.position + forwardMove + lateralMove);
         }
@@ -207,7 +207,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             GameManager.MyInstance.score++;
-            RunSpeed += speedIncrease;
+            if (GameManager.MyInstance.score % 10 == 0)
+                RunSpeed += speedIncrease;
         }
 
         if (collision.gameObject.name == "SpeedReduce(Clone)")

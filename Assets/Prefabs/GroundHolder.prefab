@@ -311,7 +311,9 @@ MonoBehaviour:
   - {fileID: 488330884748757970}
   - {fileID: 283121110407534418}
   - {fileID: 1915500283815172267}
-  powerSpawned: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &8198765067619653720
 GameObject:
   m_ObjectHideFlags: 0

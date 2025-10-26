@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5630511846146672120}
   - component: {fileID: 1716511590078753357}
   - component: {fileID: 705050302150446855}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 110253394465621152}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
