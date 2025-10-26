@@ -14,7 +14,6 @@ public class GroundTile : MonoBehaviour
     public GameObject[] powerPrefabs; 
     public Transform[] powerSpawnPoints;
 
-    public bool powerSpawned = false;
 
     private void Awake()
     {
@@ -62,11 +61,12 @@ public class GroundTile : MonoBehaviour
 
     void SpawnPower()
     {
-        if (powerSpawned) return;
+        int canSpawn = Random.Range(0, 2);
+        if (canSpawn == 0) return;
+        
         int powerIndex = Random.Range(0, powerPrefabs.Length);
         int pointIndex = Random.Range(0, powerSpawnPoints.Length);
         Instantiate(powerPrefabs[powerIndex], powerSpawnPoints[pointIndex].position, Quaternion.identity);
-        powerSpawned = true;
         return;
     }
 

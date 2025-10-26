@@ -1272,6 +1272,7 @@ MonoBehaviour:
   coneSpawnPoints: []
   powerPrefabs: []
   powerSpawnPoints: []
+  powerSpawned: 0
 --- !u!1 &1832510933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,6 +2785,7 @@ MonoBehaviour:
   coneSpawnPoints: []
   powerPrefabs: []
   powerSpawnPoints: []
+  powerSpawned: 0
 --- !u!4 &3558328719316174999
 Transform:
   m_ObjectHideFlags: 0
