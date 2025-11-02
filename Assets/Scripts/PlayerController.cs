@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float magnetForce = 2000f;
 
     public bool hasShield = false;
+    GameObject bubble;
 
     private Animator animator;
 
@@ -83,6 +84,8 @@ public class PlayerController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalHeight = capsuleCollider.height;
         originalCenter = capsuleCollider.center;
+        bubble = GameObject.Find("ShieldBubble");
+
     }
 
     // Update is called once per frame
@@ -153,6 +156,7 @@ public class PlayerController : MonoBehaviour
         hasShield = true;
         yield return new WaitForSeconds(15);
         hasShield = false;
+        bubble.GetComponent<Renderer>().enabled = false;
     }
 
 
@@ -195,7 +199,8 @@ public class PlayerController : MonoBehaviour
             if (hasShield)
             {
                 hasShield = false;
-                Destroy(collision.gameObject); // Ignore la mort
+                Destroy(collision.gameObject);
+                bubble.GetComponent<Renderer>().enabled = false;
             }
             else
             {
@@ -225,6 +230,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Shield(Clone)")
         {
+            bubble.GetComponent<Renderer>().enabled = true;
             Destroy(collision.gameObject);
             ActivateShield();
         }
