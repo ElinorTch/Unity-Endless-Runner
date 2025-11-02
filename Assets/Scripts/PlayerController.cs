@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public bool hasShield = false;
     GameObject bubble;
 
+    GameObject arrowContainer;
+
     private Animator animator;
 
     [SerializeField] private float JumpForce = 100;
@@ -88,6 +90,9 @@ public class PlayerController : MonoBehaviour
         bubble = GameObject.Find("ShieldBubble");
         lightningContainer = GameObject.Find("LightningContainer");
         lightningContainer.SetActive(false);
+
+        arrowContainer = GameObject.Find("ArrowContainer");
+        arrowContainer.SetActive(false);
     }
 
     // Update is called once per frame
@@ -186,6 +191,7 @@ public class PlayerController : MonoBehaviour
         HorizontalSpeed = 2.5f;
         yield return new WaitForSeconds(10);
         HorizontalSpeed = originalSpeed;
+        arrowContainer.SetActive(false);
     }
 
 
@@ -213,7 +219,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Coin(Clone)")
         {
-            Debug.Log("Coin collected");
             Destroy(collision.gameObject);
             GameManager.MyInstance.score++;
             if (GameManager.MyInstance.score % 30 == 0)
@@ -222,6 +227,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "SpeedReduce(Clone)")
         {
+            arrowContainer.SetActive(true);
             Destroy(collision.gameObject);
             ReduceHorizontalSpeed();
         }

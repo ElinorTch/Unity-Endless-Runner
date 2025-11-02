@@ -304,9 +304,9 @@ MonoBehaviour:
   - {fileID: 1506167771770015870}
   - {fileID: 1580712886324937884}
   powerPrefabs:
-  - {fileID: 8064233142760770448, guid: 075ce3003e9cc1441be33e9f53dfe895, type: 3}
-  - {fileID: 4166553050223823003, guid: de34c7e3da7a5ff419f2cabd2e723d29, type: 3}
+  - {fileID: 1177388024009327953, guid: 68bad0128a64c484fba1d3ffb6adcabf, type: 3}
   - {fileID: 7083183375394803932, guid: 76ce09270a2c944419f51f3383ba0171, type: 3}
+  - {fileID: 8064233142760770448, guid: 075ce3003e9cc1441be33e9f53dfe895, type: 3}
   powerSpawnPoints:
   - {fileID: 488330884748757970}
   - {fileID: 283121110407534418}
