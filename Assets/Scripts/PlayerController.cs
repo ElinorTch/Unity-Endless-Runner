@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool coinMagnetActive = false;
     public float magnetRadius = 5f;
     public float magnetForce = 2000f;
+    GameObject lightningContainer;
 
     public bool hasShield = false;
     GameObject bubble;
@@ -85,7 +86,8 @@ public class PlayerController : MonoBehaviour
         originalHeight = capsuleCollider.height;
         originalCenter = capsuleCollider.center;
         bubble = GameObject.Find("ShieldBubble");
-
+        lightningContainer = GameObject.Find("LightningContainer");
+        lightningContainer.SetActive(false);
     }
 
     // Update is called once per frame
@@ -170,6 +172,7 @@ public class PlayerController : MonoBehaviour
         coinMagnetActive = true;
         yield return new WaitForSeconds(15);
         coinMagnetActive = false;
+        lightningContainer.SetActive(false);
     }
 
     public void ReduceHorizontalSpeed()
@@ -210,6 +213,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Coin(Clone)")
         {
+            Debug.Log("Coin collected");
             Destroy(collision.gameObject);
             GameManager.MyInstance.score++;
             if (GameManager.MyInstance.score % 30 == 0)
@@ -224,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Magnet(Clone)")
         {
+            lightningContainer.SetActive(true);
             Destroy(collision.gameObject);
             ActivateMagnet();
         }
